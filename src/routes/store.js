@@ -251,3 +251,7 @@ export const move_after_check = writable([{
 }]);
 
 export const king_in_check = writable(false);
+
+export const halfmove = writable(0);
+
+export const pending_response = writable(false);

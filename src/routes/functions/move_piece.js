@@ -1,4 +1,5 @@
-import { game_timer, pieces, pieces_previous_change_timer, pieces_previous_position, white_turn, king_in_check } from "../store";
+import { engine_move } from "../engine/engine_move";
+import { game_timer, pieces, pieces_previous_change_timer, pieces_previous_position, white_turn, king_in_check, halfmove } from "../store";
 import { get_square_info } from "./get_square_info";
 import { get } from "svelte/store";
 
@@ -14,6 +15,17 @@ export const move_piece = (/** @type {number} */ previous_row, /** @type {number
     const square_info = get_square_info(previous_row, previous_column);
     const piece_id = square_info.id
 
+    // update halfmove 
+    const next_square_info = get_square_info(row, column)
+    if (square_info.name === 'pawn' || next_square_info.has_piece) {
+        halfmove.set(0);
+    } else {
+        halfmove.update((value) => {
+            return value + 1
+        });
+    }
+
+    // update everything else
     pieces_previous_position.update((value) => {
         value[piece_id] = [previous_row, previous_column];
         return value;

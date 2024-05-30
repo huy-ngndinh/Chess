@@ -1,7 +1,7 @@
 <script>
     import { get_square_info } from "./functions/get_square_info";
     import Piece from "./piece.svelte";
-    import { selected_square, square_highlighted, highlighted_square_clicked, white_turn, king_in_check, move_after_check } from "./store";
+    import { selected_square, square_highlighted, highlighted_square_clicked, white_turn, king_in_check, move_after_check, pending_response } from "./store";
     export let piece = {
         name: "",
         id: -1,
@@ -39,8 +39,14 @@
     }
 
     $: disabled_condition = () => {
+        if ($pending_response) return true;
         if (has_piece_type() === 1 && !$white_turn) return true;
         if (has_piece_type() === -1 && $white_turn) return true;
+        return false;
+    }
+    
+    $: highlighted_disabled_condition = () => {
+        if ($pending_response) return true;
         return false;
     }
 
@@ -60,8 +66,12 @@
 
 </script>
 <div class="square-container">
-    {#if /*$square_highlighted[row][column]*/ highlight_condition() }
-        <button class="square-highlighted" on:click|preventDefault={() => on_click_highlighted()}>
+    {#if highlight_condition() }
+        <button 
+            class="square-highlighted" 
+            on:click|preventDefault={() => on_click_highlighted()} 
+            disabled={highlighted_disabled_condition()}
+        >
             {#if piece.name !== ""} 
                 <Piece piece_info={piece.name}/>
             {/if}

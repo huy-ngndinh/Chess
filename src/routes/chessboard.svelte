@@ -1,15 +1,23 @@
 <script>
-    import { highlighted_square_clicked, pieces, previous_selected_square, selected_square, king_in_check, move_after_check } from "./store";
+    import { highlighted_square_clicked, pieces, previous_selected_square, selected_square, king_in_check, move_after_check, white_turn } from "./store";
     import Square from "./square.svelte";
     import { highlight_square } from "./functions/highlight_square";
     import { onDestroy } from "svelte";
     import { move_piece } from "./functions/move_piece";
     import { promotion } from "./functions/promotion";
     import { king_status } from "./functions/king_check";
+    import { engine_move } from "./engine/engine_move";
 
-    const unsubsribe = selected_square.subscribe(() => {
+    const unsubsribe_selected_square = selected_square.subscribe(() => {
 
-        if ($highlighted_square_clicked) {
+        if (!$white_turn) {
+            
+            const [previous_row, previous_column] = $previous_selected_square;
+            const [row, column] = $selected_square;
+            move_piece(previous_row, previous_column, row, column);
+            $previous_selected_square = $selected_square;
+
+        } else if ($highlighted_square_clicked) {
 
             const [previous_row, previous_column] = $previous_selected_square;
             const [row, column] = $selected_square;
@@ -46,7 +54,12 @@
         }*/
         
     })
-    onDestroy(unsubsribe);
+    onDestroy(unsubsribe_selected_square);
+
+    const unsubsribe_white_turn = white_turn.subscribe(() => {
+        engine_move();
+    })
+    onDestroy(unsubsribe_white_turn)
 
     function sleep(/** @type {number} */ ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
