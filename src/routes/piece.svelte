@@ -1,6 +1,7 @@
 <script>
     export let piece_info = ""
-    const [side, name] = piece_info.split(' ');
+    // with const, 'side' and 'name' will never change when 'pieces' change
+    $: [side, name] = piece_info.split(' ');
 </script>
 
 {#if side === 'white'}
