@@ -50,9 +50,13 @@
         return false;
     }
 
-    const on_click = () => $selected_square = [row, column]
+    const on_click = () => {
+        if (disabled_condition()) return;
+        $selected_square = [row, column]
+    }
 
     const on_click_highlighted = () => {
+        if (highlighted_disabled_condition()) return;
         $highlighted_square_clicked = true;
         $selected_square = [row, column];
     }
@@ -70,7 +74,6 @@
         <button 
             class="square-highlighted" 
             on:click|preventDefault={() => on_click_highlighted()} 
-            disabled={highlighted_disabled_condition()}
         >
             {#if piece.name !== ""} 
                 <Piece piece_info={piece.name}/>
@@ -83,7 +86,6 @@
             <button 
                 class="square-black" 
                 on:click|preventDefault={() => on_click()} 
-                disabled={disabled_condition()}
             >
                 {#if piece.name !== ""} 
                     <Piece piece_info={piece.name}/>
@@ -95,7 +97,6 @@
             <button 
                 class="square-white" 
                 on:click|preventDefault={() => on_click()}
-                disabled={disabled_condition()}
             >
                 {#if piece.name !== ""} 
                     <Piece piece_info={piece.name}/> 
