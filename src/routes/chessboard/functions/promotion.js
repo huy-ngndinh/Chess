@@ -1,5 +1,5 @@
 import { get } from "svelte/store"
-import { white_turn, pieces } from "../store"
+import { white_turn, pieces } from "../../store"
 import { get_square_info } from "./get_square_info"
 
 

@@ -1,6 +1,6 @@
 import { highlight_square } from "../functions/highlight_square"
 import { move_piece } from "../functions/move_piece"
-import { highlighted_square_clicked, pending_response, selected_square, previous_selected_square, white_turn } from "../store"
+import { highlighted_square_clicked, pending_response, selected_square, previous_selected_square, white_turn } from "../../store"
 import { get_engine_response } from "./get_engine_response"
 import { get } from "svelte/store"
 

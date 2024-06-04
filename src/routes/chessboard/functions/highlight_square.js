@@ -1,4 +1,4 @@
-import { moves_of_square_highlighted } from "../store";
+import { moves_of_square_highlighted } from "../../store";
 import { get } from "svelte/store";
 import { get_square_info } from "./get_square_info";
 import { knight_possible_square_highlighted } from "../pieces/knight";

@@ -1,4 +1,4 @@
-import { movesets } from "../store";
+import { movesets } from "../../store";
 import { get } from "svelte/store"
 
 

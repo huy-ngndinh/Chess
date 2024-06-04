@@ -1,4 +1,4 @@
-import { pieces } from "../store"
+import { pieces } from "../../store"
 import { get } from "svelte/store"
 import { movable_after_king_check } from "./king_check"
 

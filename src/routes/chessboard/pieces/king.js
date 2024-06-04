@@ -1,6 +1,6 @@
 import { get_square_info } from "../functions/get_square_info";
 import { get_piece_moveset } from "../functions/get_piece_moveset";
-import { movesets, square_highlighted } from "../store";
+import { movesets, square_highlighted } from "../../store";
 import { square_attacked } from "../functions/square_attacked";
 import { get } from "svelte/store";
 import { in_boundaries } from "../functions/in_boundaries";

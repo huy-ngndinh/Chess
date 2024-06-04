@@ -1,4 +1,4 @@
-import { pieces, pieces_previous_change_timer, pieces_previous_position } from "../store"
+import { pieces, pieces_previous_change_timer, pieces_previous_position } from "../../store"
 import { get } from "svelte/store"
 
 /**

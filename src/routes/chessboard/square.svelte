@@ -1,5 +1,5 @@
 <script>
-    import { get_square_info } from "../functions/get_square_info";
+    import { get_square_info } from "./functions/get_square_info";
     import Piece from "./piece.svelte";
     import { selected_square, square_highlighted, highlighted_square_clicked, white_turn, king_in_check, move_after_check, pending_response } from "../store";
     export let piece = {

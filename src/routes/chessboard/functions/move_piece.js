@@ -1,5 +1,5 @@
 import { engine_move } from "../engine/engine_move";
-import { game_timer, pieces, pieces_previous_change_timer, pieces_previous_position, white_turn, king_in_check, halfmove } from "../store";
+import { game_timer, pieces, pieces_previous_change_timer, pieces_previous_position, white_turn, king_in_check, halfmove } from "../../store";
 import { get_square_info } from "./get_square_info";
 import { get } from "svelte/store";
 

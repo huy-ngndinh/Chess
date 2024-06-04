@@ -1,6 +1,6 @@
 import { king_possible_square_list } from "../pieces/king";
 import { pawn_possible_square_list } from "../pieces/pawn";
-import { game_timer, halfmove, pieces, white_turn } from "../store";
+import { game_timer, halfmove, pieces, white_turn } from "../../store";
 import { get } from "svelte/store";
 
 const to_algebraic_notation = (/** @type {Number} */ row, /** @type {Number} */ column) => {

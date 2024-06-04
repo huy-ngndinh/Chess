@@ -1,4 +1,4 @@
-import { game_timer, movesets, square_highlighted } from "../store";
+import { game_timer, movesets, square_highlighted } from "../../store";
 import { get_piece_moveset } from "../functions/get_piece_moveset";
 import { get_square_info } from "../functions/get_square_info";
 import { get } from "svelte/store";
