@@ -1,12 +1,12 @@
 <script>
-    import { highlighted_square_clicked, pieces, previous_selected_square, selected_square, king_in_check, move_after_check, white_turn } from "./store";
+    import { highlighted_square_clicked, pieces, previous_selected_square, selected_square, king_in_check, move_after_check, white_turn } from "../store";
     import Square from "./square.svelte";
-    import { highlight_square } from "./functions/highlight_square";
+    import { highlight_square } from "../functions/highlight_square";
     import { onDestroy } from "svelte";
-    import { move_piece } from "./functions/move_piece";
-    import { promotion } from "./functions/promotion";
-    import { king_status } from "./functions/king_check";
-    import { engine_move } from "./engine/engine_move";
+    import { move_piece } from "../functions/move_piece";
+    import { promotion } from "../functions/promotion";
+    import { king_status } from "../functions/king_check";
+    import { engine_move } from "../engine/engine_move";
 
     const unsubsribe_selected_square = selected_square.subscribe(() => {
 
@@ -47,12 +47,7 @@
         }
         if (result === 'no-check') {
             king_in_check.set(false);
-        }
-        /*if (checkmate()) {
-            console.log("Checkmate");
-            sleep(5000).then(() => location.reload());
-        }*/
-        
+        }   
     })
     onDestroy(unsubsribe_selected_square);
 
@@ -65,9 +60,32 @@
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    export let scroll_down_active = false, scroll_up_active = false;
+
+    const on_hover = () => {
+
+        if (scroll_down_active) return;
+
+        scroll_up_active = true;
+
+        const container = document.getElementsByClassName("container")[0];
+        container.scroll({
+            top: 0,
+            behavior: "smooth"
+        })
+
+        setTimeout(() => {
+            scroll_up_active = false;
+        }, 600)
+    }
+
 </script>
 
 <div class="container">
+    <div class="other-container">
+        Coming soon!
+    </div>
+
     <div class="chessboard-container">
         {#each $pieces as row_list, row }
             {#each row_list as piece, column}
@@ -75,31 +93,71 @@
             {/each}
         {/each}
     </div>
+
+    <div class="scroll-up-button-container">
+        <button class="scroll-up-button" on:mouseenter|preventDefault={() => on_hover()}>
+            <svg class="up-arrow" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 768"><path d="M397.18,221.55A35.74,35.74,0,0,0,373,231L52.89,524.24a9.19,9.19,0,0,0-.57,13l14.59,15.93a9.2,9.2,0,0,0,13,.57L397.07,263.15,691,553a9.19,9.19,0,0,0,13-.09l15.17-15.39a9.18,9.18,0,0,0-.09-13L422.33,231.87A35.76,35.76,0,0,0,397.18,221.55Z" style="fill:#1a1a1a"/></svg>
+        </button>
+    </div>
 </div>
+
+
 
 <style>
     .container {
-        position: fixed;
         width: 100%;
         height: 100%;
-        left: 0;
-        top: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #35374B;
+        gap: 5%;
+    }
+    .other-container {
+        height: 80%;
+        width: 35%;
+        border-radius: 20px;
+
+        background-color: gray;
+        opacity: 0.5;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 50px;
+        letter-spacing: 5px;
+        font-family: 'sub-headline-font';
     }
     .chessboard-container {
         position: relative;
         height: 700px;
         width: 750px;
+
         background-color: whitesmoke;
+
         display: grid;
         grid-template-columns: repeat(8, 1fr);
         grid-template-rows: repeat(8, 1fr);
-        /*border: 1.5px solid #31363F;*/
-        /* https://stackoverflow.com/questions/5608222/how-to-apply-box-shadow-on-all-four-sides */
-        -webkit-box-shadow: 0 0 20px #222831;
-        box-shadow: 0 0 20px #222831;
+    }
+
+    .scroll-up-button-container {
+        position: absolute;
+        height: 10%;
+        width: 35%;
+        top: 100%;
+        left: 4%;
+    }
+    .scroll-up-button {
+        height: 100%;
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+    }
+    .up-arrow {
+        height: 100%;
     }
 </style>

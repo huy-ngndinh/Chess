@@ -1,7 +1,7 @@
 <script>
-    import { get_square_info } from "./functions/get_square_info";
+    import { get_square_info } from "../functions/get_square_info";
     import Piece from "./piece.svelte";
-    import { selected_square, square_highlighted, highlighted_square_clicked, white_turn, king_in_check, move_after_check, pending_response } from "./store";
+    import { selected_square, square_highlighted, highlighted_square_clicked, white_turn, king_in_check, move_after_check, pending_response } from "../store";
     export let piece = {
         name: "",
         id: -1,
@@ -111,12 +111,13 @@
         height: 100%;
         width: 100%;
         border-style: solid;
-        border-width: 0.5px;
+        border-width: 2px;
+        border-color: rgba(150, 150, 150, 0.8);
     }
     .square-highlighted {
         height: 100%;
         width: 100%;
-        background-color: #EEE4B1;
+        background-color: #FFEEA9;
         border: none;
         font-size: 10px;
         
@@ -124,14 +125,14 @@
     .square-white {
         height: 100%;
         width: 100%;
-        background-color: #344955;
+        background-color: rgba(250, 250, 250, 1);
         border: none;
         font-size: 10px;
     }
     .square-black {
         height: 100%;
         width: 100%;
-        background-color: #50727B;
+        background-color: rgba(220, 220, 220, 1);
         border: none;
         font-size: 10px;
     }
