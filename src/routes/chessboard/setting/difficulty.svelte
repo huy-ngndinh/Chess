@@ -54,7 +54,7 @@
     }
     @font-face {
         font-family: 'setting';
-        src: url('/fonts/setting.ttf') format('truetype');
+        src: url('$fonts/setting.ttf') format('truetype');
     }
     .difficulty-title {
         height: 100%;

@@ -6,7 +6,7 @@
     const unsubscribe = start_game.subscribe(() => {
         if ($start_game && $music) {
             var audio = document.getElementById("background-audio");
-            if (audio !== null && 'volume' in audio) audio.volume = 0.1;
+            if (audio !== null && 'volume' in audio) audio.volume = 0.03;
         }
     })
     onDestroy(unsubscribe);
@@ -36,7 +36,7 @@
 
     <audio id="background-audio" autoplay loop>
         {#if $start_game && $music} 
-            <source src="/audio/background_music.mp3" type="audio/mp3"/>
+            <source src="{process.env.NODE_ENV === 'development' ? '/audio' : '/static/audio'}/background_music.mp3" type="audio/mp3"/>
         {/if}
     </audio>
     
