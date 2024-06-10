@@ -36,7 +36,7 @@
 
     <audio id="background-audio" autoplay loop>
         {#if $start_game && $music} 
-            <source src="src/assets/audio/background_music.mp3" type="audio/mp3"/>
+            <source src="/audio/background_music.mp3" type="audio/mp3"/>
         {/if}
     </audio>
     

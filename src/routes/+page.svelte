@@ -20,7 +20,7 @@
         width: 100%;
         overflow-y: hidden;
 
-        background-image: url('../assets/images/origami-pattern-background.png');
+        background-image: url('/images/origami-pattern-background.png');
         background-size: cover;
         background-position: center;
         background-color: rgba(255, 255, 255, 0.8);
