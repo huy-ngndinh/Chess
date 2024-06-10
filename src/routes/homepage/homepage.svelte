@@ -65,19 +65,19 @@
         align-items: center;
     }
     @font-face {
-        font-family: 'headline-font';
-        src: url('../../assets/fonts/headline.ttf') format('truetype');
+        font-family: 'headline';
+        src: url('src/assets/fonts/headline.ttf') format('truetype');
     }
     .headline {
         font-size: 90px;
-        font-family: 'headline-font';
+        font-family: 'headline';
     }
     @font-face {
-        font-family: 'sub-headline-font';
-        src: url('../../assets/fonts/sub-headline.ttf') format('truetype');
+        font-family: 'sub-headline';
+        src: url('src/assets/fonts/sub-headline.ttf') format('truetype');
     }
     .sub-headline {
-        font-family: 'sub-headline-font';
+        font-family: 'sub-headline';
         font-size: 34px;
         letter-spacing: 1px;
         word-spacing: 8px;

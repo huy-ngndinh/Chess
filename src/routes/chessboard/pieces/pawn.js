@@ -4,6 +4,7 @@ import { get_square_info } from "../functions/get_square_info";
 import { get } from "svelte/store";
 import { in_boundaries } from "../functions/in_boundaries";
 import { check_pin } from "../functions/check_pin";
+import { is_player_side } from "../../set_board";
 
 /**
  * Return a list of all possible squares a pawn at (row, column) can move to
@@ -21,7 +22,7 @@ export const pawn_possible_square_list = (/** @type {number} */ row, /** @type {
     const piece_moveset_original = get_piece_moveset(current_square_info.name);
     var piece_moveset = piece_moveset_original.map((value) => {
         const new_value = value.slice();
-        if (current_square_info.side === 'black') new_value[0] = new_value[0]*(-1);
+        if (!is_player_side(current_square_info.side)) new_value[0] = new_value[0]*(-1);
         return new_value;
     })
 
@@ -75,7 +76,7 @@ export const pawn_possible_square_list = (/** @type {number} */ row, /** @type {
 const check_en_passent = (/** @type {number} */ row, /** @type {number} */ column, /** @type {number[][]} */ possible_square_list) => {
 
     const square_info = get_square_info(row, column);
-    if ((square_info.side == 'white' && row !== 3) || (square_info.side === 'black' && row !== 4)) return;
+    if ((is_player_side(square_info.side) && row !== 3) || (!is_player_side(square_info.side) && row !== 4)) return;
 
     const moves = [[0, -1], [0, 1]]
     for (const diff of moves) {
@@ -104,7 +105,7 @@ const check_en_passent = (/** @type {number} */ row, /** @type {number} */ colum
         const current_time = get(game_timer);
         if (next_square_last_change_time !== current_time) continue;
 
-        if (square_info.side === 'black') next_row = next_row + 1
+        if (!is_player_side(square_info.side)) next_row = next_row + 1
         else next_row = next_row - 1
 
         if (check_pin([row, column], [next_row, next_column], square_info.side)) continue;         
@@ -132,6 +133,8 @@ export const pawn_possible_square_highlighted = (/** @type {number} */ row, /** 
         })
     }
 
+    console.log(get(square_highlighted))
+
 }
 
 /**
@@ -150,7 +153,7 @@ export const square_attacked_by_pawn = (/** @type {number} */ row, /** @type {nu
 
         if (Math.abs(diff_column) === 0) continue;
 
-        if (side === 'black') diff_row = diff_row * (-1);
+        if (!is_player_side(side)) diff_row = diff_row * (-1);
 
         const next_row = row + diff_row, next_column = column + diff_column;
 

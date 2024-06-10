@@ -4,6 +4,7 @@ import { movesets, square_highlighted } from "../../store";
 import { square_attacked } from "../functions/square_attacked";
 import { get } from "svelte/store";
 import { in_boundaries } from "../functions/in_boundaries";
+import { is_player_side } from "../../set_board";
 
 /**
  * Return a list of all possible squares a king at (row, column) can move to
@@ -58,7 +59,7 @@ const short_castling = (/** @type {number} */ row, /** @type {number} */ column,
     var rook_position, square_between_list = [[0, 0], [0, 0]];
 
 
-    if (current_square_info.side === 'black') {
+    if (!is_player_side(current_square_info.side)) {
         rook_position = [0, 7]
         square_between_list = [[0, 6], [0, 5]];
     } else {
@@ -96,7 +97,7 @@ const long_castling = (/** @type {number} */ row, /** @type {number} */ column, 
     var rook_position, square_between_list = [[0, 0], [0, 0], [0, 0]];
 
 
-    if (current_square_info.side === 'black') {
+    if (!is_player_side(current_square_info.side)) {
         rook_position = [0, 0]
         square_between_list = [[0, 1], [0, 2], [0, 3]];
     } else {

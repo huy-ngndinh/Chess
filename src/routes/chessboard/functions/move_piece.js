@@ -2,6 +2,7 @@ import { engine_move } from "../engine/engine_move";
 import { game_timer, pieces, pieces_previous_change_timer, pieces_previous_position, white_turn, king_in_check, halfmove } from "../../store";
 import { get_square_info } from "./get_square_info";
 import { get } from "svelte/store";
+import { is_player_side } from "../../set_board";
 
 /**
  * Move piece in square (previous_row, previous_column) to square (row, column)
@@ -70,7 +71,7 @@ const en_passent_check = (/** @type {number} */ previous_row, /** @type {number}
     if (next_square_info.has_piece) return;
 
     pieces.update((value) => {
-        if (square_info.side === 'black') {
+        if (!is_player_side(square_info.side)) {
             value[row - 1][column] = {
                 name: "",
                 id: -1,
@@ -99,7 +100,7 @@ const short_castling_check = (/** @type {number} */ previous_row, /** @type {num
     // black: id = 9, position = [0, 7] 
     // white: id = 25, position = [7, 7]
     var rook_from_position = [0, 0], rook_to_position = [0, 0], id = 0
-    if (square_info.side === 'white') rook_from_position = [7, 7], rook_to_position = [7, 5], id = 25
+    if (is_player_side(square_info.side)) rook_from_position = [7, 7], rook_to_position = [7, 5], id = 25
     else rook_from_position = [0, 7], rook_to_position = [0, 5], id = 9
 
     pieces_previous_change_timer.update((value) => {
@@ -130,7 +131,7 @@ const long_castling_check = (/** @type {number} */ previous_row, /** @type {numb
     // black: id = 8, position = [0, 0] 
     // white: id = 24, position = [7, 0]
     var rook_from_position = [0, 0], rook_to_position = [0, 0], id = 0
-    if (square_info.side === 'white') rook_from_position = [7, 0], rook_to_position = [7, 3], id = 24
+    if (is_player_side(square_info.side)) rook_from_position = [7, 0], rook_to_position = [7, 3], id = 24
     else rook_from_position = [0, 0], rook_to_position = [0, 3], id = 8
 
     pieces_previous_change_timer.update((value) => {

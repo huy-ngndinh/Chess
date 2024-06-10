@@ -1,6 +1,6 @@
 import { highlight_square } from "../functions/highlight_square"
 import { move_piece } from "../functions/move_piece"
-import { highlighted_square_clicked, pending_response, selected_square, previous_selected_square, white_turn } from "../../store"
+import { highlighted_square_clicked, pending_response, selected_square, previous_selected_square, white_turn, flip_board, evaluation } from "../../store"
 import { get_engine_response } from "./get_engine_response"
 import { get } from "svelte/store"
 
@@ -20,7 +20,8 @@ const to_xy_coord = (/** @type {String} */ move) => {
 
 export const engine_move = async () => {
 
-    if (get(white_turn)) return;
+    if (get(white_turn) && !get(flip_board)) return;
+    if (!get(white_turn) && get(flip_board)) return;
 
     try {
         pending_response.set(true);
@@ -40,6 +41,8 @@ export const engine_move = async () => {
 
         previous_selected_square.set([previous_row, previous_column])
         selected_square.set([next_row, next_column]);
+
+        if (data.evaluation !== null) evaluation.set(data.evaluation)
 
     } catch (error) {
 

@@ -1,5 +1,5 @@
 <script>
-    import { highlighted_square_clicked, pieces, previous_selected_square, selected_square, king_in_check, move_after_check, white_turn } from "../store";
+    import { highlighted_square_clicked, pieces, previous_selected_square, selected_square, king_in_check, white_turn, start_game, flip_board, square_highlighted } from "../store";
     import Square from "./square.svelte";
     import { highlight_square } from "./functions/highlight_square";
     import { onDestroy } from "svelte";
@@ -7,11 +7,20 @@
     import { promotion } from "./functions/promotion";
     import { king_status } from "./functions/king_check";
     import { engine_move } from "./engine/engine_move";
+    import Difficulty from "./setting/difficulty.svelte";
+    import Music from "./setting/music.svelte";
+    import FlipBoard from "./setting/flip_board.svelte";
+    import EvaluationBar from "./setting/evaluation_bar.svelte"
+    import EvaluationButton from "./setting/evaluation_button.svelte";
+    import HelpText from "./setting/help_text.svelte";
+    import Gif from "./setting/gif.svelte";
+    import StartButton from "./setting/start_button.svelte";
+    import ChessPending from "./chess_pending.svelte";
 
     const unsubsribe_selected_square = selected_square.subscribe(() => {
 
-        if (!$white_turn) {
-            
+        if ((!$white_turn && !$flip_board) || ($white_turn && $flip_board)) {
+
             const [previous_row, previous_column] = $previous_selected_square;
             const [row, column] = $selected_square;
             move_piece(previous_row, previous_column, row, column);
@@ -82,16 +91,36 @@
 </script>
 
 <div class="container">
-    <div class="other-container">
-        Coming soon!
+    <div class="setting-container">
+
+        <div class="left-container">
+            <Difficulty />
+            <div class="music-flip-container">
+                <Music />
+                <FlipBoard />
+            </div>
+            <EvaluationButton />
+            <HelpText />
+            <Gif />
+            <StartButton />
+        </div>
+
+        <div class="right-container">
+            <EvaluationBar />
+        </div>
+
     </div>
 
     <div class="chessboard-container">
-        {#each $pieces as row_list, row }
-            {#each row_list as piece, column}
-                <Square piece={piece} row={row} column={column} />
+        {#if $start_game}
+            {#each $pieces as row_list, row }
+                {#each row_list as piece, column}
+                    <Square piece={piece} row={row} column={column} />
+                {/each}
             {/each}
-        {/each}
+        {:else}
+            <ChessPending />
+        {/if}
     </div>
 
     <div class="scroll-up-button-container">
@@ -110,23 +139,44 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 5%;
+        gap: 1%;
     }
-    .other-container {
+    .setting-container {
         height: 80%;
-        width: 35%;
+        width: 40%;
         border-radius: 20px;
 
-        background-color: gray;
-        opacity: 0.5;
+        display: flex;
+        flex-direction: row;
+    }
+    .left-container {
+        height: 100%;
+        width: 85%;
+        /* background-color: green; */
+
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        flex-direction: column;
+        gap: 2.5%;
+    }
+    .music-flip-container {
+        height: 10%;
+        width: 100%;
 
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: row;
+    }
+    .right-container {
+        height: 100%;
+        width: 15%;
+        /* background-color: blue; */
 
-        font-size: 50px;
-        letter-spacing: 5px;
-        font-family: 'sub-headline-font';
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .chessboard-container {
         position: relative;

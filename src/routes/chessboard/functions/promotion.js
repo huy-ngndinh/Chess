@@ -1,6 +1,7 @@
 import { get } from "svelte/store"
-import { white_turn, pieces } from "../../store"
+import { white_turn, pieces, flip_board } from "../../store"
 import { get_square_info } from "./get_square_info"
+import { is_player_side } from "../../set_board"
 
 
 /**
@@ -10,8 +11,8 @@ export const promotion = () => {
 
     if (get(white_turn)) {
         // the previous turn is black's turn
-        const row = 7
-        for (const column of [0, 1, 2, 3, 4, 5, 6, 7]) {
+        const row = !get(flip_board) ? 7 : 0;
+         for (const column of [0, 1, 2, 3, 4, 5, 6, 7]) {
             const square_info = get_square_info(row, column);
             if (square_info.has_piece && square_info.side === 'black' && square_info.name === 'pawn') {
                 pieces.update((value) => {
@@ -22,8 +23,7 @@ export const promotion = () => {
         }
     } else {
         // the previous turn is white's turn
-        // the previous turn is black's turn
-        const row = 0
+        const row = !get(flip_board) ? 0 : 7;
         for (const column of [0, 1, 2, 3, 4, 5, 6, 7]) {
             const square_info = get_square_info(row, column);
             if (square_info.has_piece && square_info.side === 'white' && square_info.name === 'pawn') {

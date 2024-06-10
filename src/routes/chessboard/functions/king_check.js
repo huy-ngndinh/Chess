@@ -10,6 +10,7 @@ import { rook_possible_square_list } from "../pieces/rook"
 import { bishop_possible_square_list } from "../pieces/bishop"
 import { king_possible_square_list } from "../pieces/king"
 import { knight_possible_square_list } from "../pieces/knight"
+import { is_player_side } from "../../set_board"
 
 const pieces_original = get(pieces);
 const queen_moveset = [
@@ -115,7 +116,9 @@ export const movable_after_king_check = (/** @type { String } */ side, /** @type
     }
     // pawn
     for (const diff of pawn_moveset) {
-            const [diff_row, diff_column] = diff;
+            var [diff_row, diff_column] = diff;
+            if (!is_player_side(side)) diff_row = diff_row * (-1);
+            
             // check if the king or another piece moves and update its position accordingl
             opponent_next_row = king_position[0] + diff_row, opponent_next_column = king_position[1] + diff_column;
 

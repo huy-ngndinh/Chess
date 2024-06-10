@@ -1,6 +1,6 @@
 import { king_possible_square_list } from "../pieces/king";
 import { pawn_possible_square_list } from "../pieces/pawn";
-import { game_timer, halfmove, pieces, white_turn } from "../../store";
+import { flip_board, game_timer, halfmove, pieces, white_turn } from "../../store";
 import { get } from "svelte/store";
 
 const to_algebraic_notation = (/** @type {Number} */ row, /** @type {Number} */ column) => {
@@ -119,5 +119,34 @@ export const get_fen = () => {
     if (current_timer % 2 === 1) fen = fen + ((current_timer-1)/2).toString();
     else fen = fen + (current_timer/2).toString();
 
+    // fen string only allows playing on white side
+    if (get(flip_board)) fen = flip_fen(fen);
+
     return fen;
+}
+
+const flip_fen = (/** @type {String} */ fen) => {
+    var fen_segment = fen.split(' ');
+
+    // first field: piece placement
+    var new_piece_placement = "";
+    for (var i = 0; i < fen_segment[0].length; i += 1) {
+        if ('a' <= fen_segment[0][i] && fen_segment[0][i] <= 'z') new_piece_placement += fen_segment[0][i].toUpperCase();
+        else new_piece_placement += fen_segment[0][i].toLowerCase();
+    }
+    fen_segment[0] = new_piece_placement;
+
+    // second field: active color
+    if (fen_segment[1] === 'w') fen_segment[1] = 'b';
+    else fen_segment[1] = 'w';
+
+    // third field: castling rights
+    var new_castling = ""
+    for (var i = 0; i < fen_segment[2].length; i++) {
+        if ('a' <= fen_segment[2][i] && fen_segment[2][i] <= 'z') new_castling += fen_segment[2][i].toUpperCase();
+        else new_castling += fen_segment[2][i].toLowerCase();
+    }
+    fen_segment[2] = new_castling;
+
+    return fen_segment.join(' ');
 }
