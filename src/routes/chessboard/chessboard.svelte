@@ -8,7 +8,6 @@
     import { king_status } from "./functions/king_check";
     import { engine_move } from "./engine/engine_move";
     import Difficulty from "./setting/difficulty.svelte";
-    import Music from "./setting/music.svelte";
     import FlipBoard from "./setting/flip_board.svelte";
     import EvaluationBar from "./setting/evaluation_bar.svelte"
     import EvaluationButton from "./setting/evaluation_button.svelte";
@@ -95,10 +94,7 @@
 
         <div class="left-container">
             <Difficulty />
-            <div class="music-flip-container">
-                <Music />
-                <FlipBoard />
-            </div>
+            <FlipBoard />
             <EvaluationButton />
             <HelpText />
             <Gif />
@@ -159,15 +155,6 @@
         align-items: center;
         flex-direction: column;
         gap: 2.5%;
-    }
-    .music-flip-container {
-        height: 10%;
-        width: 100%;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
     }
     .right-container {
         height: 100%;

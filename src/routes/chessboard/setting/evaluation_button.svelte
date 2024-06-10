@@ -38,7 +38,7 @@
         align-items: center;
         gap: 2%;
 
-        transform: rotate(3deg);
+        transform: rotate(3deg) translateX(10%);
     }
     .evaluation-title {
         font-family: 'setting';

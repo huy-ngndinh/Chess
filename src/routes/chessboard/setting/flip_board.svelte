@@ -29,8 +29,8 @@
 
 <style>
     .flip-container {
-        height: 100%;
-        width: 60%;
+        height: 10%;
+        width: 100%;
         /* background-color: beige; */
 
         display: flex;
@@ -39,7 +39,7 @@
         justify-content: center;
         align-items: center;
         
-        transform: rotate(-4deg);
+        transform: rotate(-4deg) translateX(-10%);  
     }
     .flip-title {
         font-family: 'setting';
@@ -61,7 +61,7 @@
         background-color: #1A2130;
 
         position: absolute;
-        right: 10%;
+        right: 25%;
 
         height: 4%;
         width: 0%;
@@ -69,6 +69,6 @@
         transition: width 1s;
     }
     .animate {
-        width: 80%;
+        width: 50%;
     }
 </style>
