@@ -66,7 +66,7 @@
     }
     @font-face {
         font-family: 'headline';
-        src: url('/src/assets/fonts/headline.ttf') format('truetype');
+        src: url('src/assets/fonts/headline.ttf') format('truetype');
     }
     .headline {
         font-size: 90px;
@@ -74,7 +74,7 @@
     }
     @font-face {
         font-family: 'sub-headline';
-        src: url('/src/assets/fonts/sub-headline.ttf') format('truetype');
+        src: url('src/assets/fonts/sub-headline.ttf') format('truetype');
     }
     .sub-headline {
         font-family: 'sub-headline';
