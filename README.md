@@ -2,7 +2,7 @@
 A simple origami-theme website, built with `SvelteKit`. Test your skill against Stockfish!
 
 ## Features
-The website is still in early development. Currently, it only has one option of playing chess on white side. More features will be added soon!
+This personal project features a classic, minimalistic chessboard with a few options such as choosing difficulty or showing evaluation.
 
 ## Demo
 [🌐 Visit the site!](https://huy-ngndinh.github.io/Chess/)
