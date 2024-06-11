@@ -17,11 +17,13 @@
 
 </script>
 
-<div class="evaluation-bar-container" style="transform: rotate({!$flip_board ? "180deg" : "0deg"})">
-    {#if $show_eval}
-        <div class="evaluation-bar" style="height: {current_level}%"></div>
-    {/if}
-</div>
+{#if $show_eval}
+    <div class="evaluation-bar-container" style="transform: rotate({!$flip_board ? "180deg" : "0deg"})">
+        {#if $show_eval}
+            <div class="evaluation-bar" style="height: {current_level}%"></div>
+        {/if}
+    </div>
+{/if}
 
 <style>
     .evaluation-bar-container {

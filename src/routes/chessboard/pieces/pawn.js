@@ -133,8 +133,6 @@ export const pawn_possible_square_highlighted = (/** @type {number} */ row, /** 
         })
     }
 
-    console.log(get(square_highlighted))
-
 }
 
 /**
