@@ -116,8 +116,9 @@ export const get_fen = () => {
 
     // sixth field: fullmove clock
     const current_timer = get(game_timer)
-    if (current_timer % 2 === 1) fen = fen + ((current_timer-1)/2).toString();
-    else fen = fen + (current_timer/2).toString();
+    // if (current_timer % 2 === 1) fen = fen + ((current_timer-1)/2).toString();
+    // else fen = fen + (current_timer/2).toString();
+    fen = fen + current_timer.toString();
 
     // fen string only allows playing on white side
     if (get(flip_board)) fen = flip_fen(fen);

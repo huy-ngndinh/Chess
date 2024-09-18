@@ -32,9 +32,13 @@ export const engine_move = async () => {
 
         pending_response.set(false);
 
-        const bestmove_split = data.bestmove.split(' ');
-        const previous_square = bestmove_split[1].slice(0, 2)
-        const next_square = bestmove_split[1].slice(2)
+        // const bestmove_split = data.bestmove.split(' ');
+        // const bestmove_split = data.bestmove.split(' ');
+        // const previous_square = bestmove_split[1].slice(0, 2)
+        // const next_square = bestmove_split[1].slice(2)
+        console.log(data);
+        const previous_square = data.from;
+        const next_square = data.to;
         
         const [previous_row, previous_column] = to_xy_coord(previous_square)
         const [next_row, next_column] = to_xy_coord(next_square)
@@ -42,7 +46,8 @@ export const engine_move = async () => {
         previous_selected_square.set([previous_row, previous_column])
         selected_square.set([next_row, next_column]);
 
-        if (data.evaluation !== null) evaluation.set(data.evaluation)
+        // if (data.evaluation !== null) evaluation.set(data.evaluation)
+        if (data.eval !== null) evaluation.set(data.eval);
 
     } catch (error) {
 
